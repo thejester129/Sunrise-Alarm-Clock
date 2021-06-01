@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SunriseAlarmClock</string>
+    <string name="app_name">Sunrise Alarm Clock</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -9,4 +9,10 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="settings_alarm_mins_before_sunrise">Alarm Minutes Before Sunrise</string>
+    <string name="channel_name">Alarm Notification Channel</string>
+    <string name="channel_description">Sends alarm notifications</string>
+    <string name="home_fragment_label">Home Fragment</string>
+    <string name="button_continue">Continue</string>
+    <string name="settings_fragment_label">Settings</string>
 </resources>
