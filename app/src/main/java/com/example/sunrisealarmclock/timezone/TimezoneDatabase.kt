@@ -21,23 +21,17 @@ abstract class TimezoneDatabase : RoomDatabase(){
                     context,
                     TimezoneDatabase::class.java,
                     "timezone_db")
-                    .addCallback(TimezoneCallback())
                     .build()
+                initData()
             }
             return INSTANCE as TimezoneDatabase
         }
 
-        class TimezoneCallback : RoomDatabase.Callback(){
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
-                //initData()
-            }
-        }
 
         private suspend fun initData(){
             val dao = INSTANCE?.dao()
             if(dao != null && dao.getAllLocations().isNullOrEmpty()){
-                dao.save(TimezoneLocation("London",0,50.0,50.0,false))
+                dao.save(TimezoneLocation("London",0,50.0,50.0,true))
                 dao.save(TimezoneLocation("Berlin",-1, 70.0,50.0,false))
             }
         }

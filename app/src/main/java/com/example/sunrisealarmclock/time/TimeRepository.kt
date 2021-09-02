@@ -7,10 +7,16 @@ import com.example.sunrisealarmclock.api.WeatherApiService
 import java.util.*
 
 class TimeRepository (private val dao : SunriseTimeDAO, private val context: Context){
-    private val sunriseTimeService: SunriseTimeService = WeatherApiService(context)
+    private val sunriseTimeService: SunriseTimeService = WeatherApiService(context, null)
     val latestSunriseTime : MutableLiveData<Long> = MutableLiveData()
     private val timeoutPeriod : Int = 8 * 60 * 60 * 1000 // 8 hours
     private var timeLastFetched : Long = 0
+    var city: String? = null
+        set(value){
+            sunriseTimeService.city = value
+            field = value
+        }
+
 
     init{
         sunriseTimeService.sunriseTime().observeForever { time ->
@@ -18,19 +24,24 @@ class TimeRepository (private val dao : SunriseTimeDAO, private val context: Con
         }
     }
 
-    suspend fun refreshSunriseInfo(){
-        if(timeout()){
-            val latestTime = sunriseTimeService.fetchLatestData()
-            timeLastFetched = Calendar.getInstance().timeInMillis
-            dao.save(SunriseTimeEntry(latestTime))
-            latestSunriseTime.postValue(latestTime)
+    suspend fun tryRefreshSunriseInfo(){
+        if(isDataStale()){
+            forceRefreshSunriseInfo()
         }
         else{
             latestSunriseTime.postValue(dao.get().time)
         }
     }
 
-    private fun timeout():Boolean{
+    suspend fun forceRefreshSunriseInfo(){
+        val latestTime = sunriseTimeService.fetchLatestData()
+        timeLastFetched = Calendar.getInstance().timeInMillis
+        dao.save(SunriseTimeEntry(latestTime))
+        latestSunriseTime.postValue(latestTime)
+    }
+
+
+    private fun isDataStale():Boolean{
         if(timeLastFetched == 0L){
             return true
         }

@@ -1,5 +1,7 @@
 package com.example.sunrisealarmclock.timezone
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -12,10 +14,16 @@ interface TimezoneDAO {
     suspend fun save(entry: TimezoneLocation)
 
     @Query("SELECT * FROM timezones WHERE isCurrentLocation = 1 LIMIT 1")
-    suspend fun getCurrentLocation(): TimezoneLocation?
+    suspend fun getCurrentLocation(): TimezoneLocation
+
+    @Query("SELECT * FROM timezones WHERE isCurrentLocation = 1 LIMIT 1")
+    fun getCurrentLocationLive(): LiveData<TimezoneLocation>
 
     @Query("SELECT * FROM timezones")
     suspend fun getAllLocations(): Array<TimezoneLocation>?
+
+    @Query("SELECT * FROM timezones")
+    fun getAllLiveLocations(): LiveData<Array<TimezoneLocation>>
 
     @Query("UPDATE timezones SET isCurrentLocation = 1 WHERE city = :city")
     suspend fun setAsCurrentLocation(city:String)

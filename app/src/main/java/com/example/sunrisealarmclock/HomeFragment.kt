@@ -27,9 +27,13 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        timezoneViewModel.dataLoading.observe(viewLifecycleOwner,  { isLoading ->
+            if(!isLoading){
+                setupCity()
+            }
+        })
         setupNumberPicker()
         setupDaysRecycler()
-        setupCity()
         observeSunriseTime()
         setHasOptionsMenu(true)
     }
@@ -63,7 +67,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupCity(){
-        timezoneViewModel.timezoneLocation?.let { home_city.text = it.city}
+        val cityHeader = timezoneViewModel.timezoneLocation.city + " Sunrise"
+        home_city.text = cityHeader
     }
 
     private fun observeSunriseTime(){

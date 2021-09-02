@@ -13,7 +13,7 @@ import com.example.sunrisealarmclock.settings.SettingsViewModel
 class DaysRecyclerViewAdapter(private val dataSet: Array<DayItem>, private val viewModel : SettingsViewModel) :
     RecyclerView.Adapter<DaysRecyclerViewAdapter.ViewHolder>() {
     private val activeColour = Color.parseColor("#15d4a4")
-    private val inactiveColour = Color.parseColor("#232624")
+    private val inactiveColour = Color.parseColor("#FFFFFF")
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
