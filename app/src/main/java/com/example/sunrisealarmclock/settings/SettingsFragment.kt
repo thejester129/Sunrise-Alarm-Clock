@@ -6,6 +6,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.example.sunrisealarmclock.R
 import com.example.sunrisealarmclock.timezone.TimezoneViewModel
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -33,6 +34,11 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        timezoneViewModel.dataLoading.observe(viewLifecycleOwner, Observer { loaded ->
+            if(loaded){
+                setupSpinner()
+            }
+        })
         setupSpinner()
     }
 

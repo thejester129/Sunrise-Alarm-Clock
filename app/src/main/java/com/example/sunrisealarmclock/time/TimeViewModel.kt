@@ -33,14 +33,8 @@ class TimeViewModel(application: Application) : AndroidViewModel(application){
     private fun observeCity(city: LiveData<TimezoneLocation>){
         city.observeForever { timezone ->
             viewModelScope.launch {
-                if(repo.city==null){
-                    repo.city = "London"//timezone.city
-                    repo.forceRefreshSunriseInfo()
-                }
-                else if(timezone?.city!=null && timezone.city!=repo.city){
-                    repo.city = timezone.city
-                    repo.forceRefreshSunriseInfo()
-                }
+                repo.city = timezone
+                repo.forceRefreshSunriseInfo()
             }
         }
     }

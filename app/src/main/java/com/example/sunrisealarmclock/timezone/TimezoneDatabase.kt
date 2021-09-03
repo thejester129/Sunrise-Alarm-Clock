@@ -31,8 +31,8 @@ abstract class TimezoneDatabase : RoomDatabase(){
         private suspend fun initData(){
             val dao = INSTANCE?.dao()
             if(dao != null && dao.getAllLocations().isNullOrEmpty()){
-                dao.save(TimezoneLocation("London",0,50.0,50.0,true))
-                dao.save(TimezoneLocation("Berlin",-1, 70.0,50.0,false))
+                dao.save(TimezoneLocation("London","uk",0,50.0,50.0,true))
+                dao.save(TimezoneLocation("Berlin","de",-1, 70.0,50.0,false))
             }
         }
     }

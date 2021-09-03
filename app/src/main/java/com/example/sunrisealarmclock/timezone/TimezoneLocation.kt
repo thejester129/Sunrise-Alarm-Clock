@@ -8,6 +8,7 @@ import com.example.sunrisealarmclock.tools.RoomConverters
 @Entity(tableName = "timezones")
 class TimezoneLocation(@PrimaryKey
                        val city:String,
+                       val countryCode:String,
                        val offset:Int,
                        val x_coordinate:Double,
                        val y_coordinate:Double,

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.example.sunrisealarmclock.api.SunriseTimeService
 import com.example.sunrisealarmclock.api.WeatherApiService
+import com.example.sunrisealarmclock.timezone.TimezoneLocation
 import java.util.*
 
 class TimeRepository (private val dao : SunriseTimeDAO, private val context: Context){
@@ -11,9 +12,9 @@ class TimeRepository (private val dao : SunriseTimeDAO, private val context: Con
     val latestSunriseTime : MutableLiveData<Long> = MutableLiveData()
     private val timeoutPeriod : Int = 8 * 60 * 60 * 1000 // 8 hours
     private var timeLastFetched : Long = 0
-    var city: String? = null
+    var city: TimezoneLocation? = null
         set(value){
-            sunriseTimeService.city = value
+            sunriseTimeService.timezoneLocation = value
             field = value
         }
 
